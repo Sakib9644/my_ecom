@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class DashboardController extends Controller
 {
@@ -25,13 +27,38 @@ class DashboardController extends Controller
         // Calculate sales per category for insights
         $categories = Category::withCount('products')->get();
 
+        $maintenanceMode = file_exists(storage_path('framework/down'));
+
         return view('admin.dashboard', compact(
             'totalSales',
             'totalOrders',
             'totalProducts',
             'totalUsers',
             'recentOrders',
-            'categories'
+            'categories',
+            'maintenanceMode'
         ));
+    }
+
+    /**
+     * Put the application into maintenance mode.
+     */
+    public function maintenanceDown()
+    {
+        Artisan::call('down', [
+            '--secret' => 'techx-' . md5(now()),
+        ]);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Application is now in maintenance mode.');
+    }
+
+    /**
+     * Take the application out of maintenance mode.
+     */
+    public function maintenanceUp()
+    {
+        Artisan::call('up');
+
+        return redirect()->route('admin.dashboard')->with('success', 'Application is back online.');
     }
 }

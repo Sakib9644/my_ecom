@@ -109,4 +109,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Users List
     Route::get('users', [AdminUserController::class, 'index'])->name('users.index');
+
+    // Maintenance Mode
+    Route::post('maintenance/down', [DashboardController::class, 'maintenanceDown'])->name('maintenance.down');
+    Route::post('maintenance/up', [DashboardController::class, 'maintenanceUp'])->name('maintenance.up');
 });

