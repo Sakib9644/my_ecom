@@ -123,12 +123,11 @@
 <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 mt-12 sm:mt-16 py-14 sm:py-16 relative overflow-hidden">
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary-600/10 via-transparent to-transparent"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-10">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-10">
             @php
                 $stats = [
                     ['value' => $totalProducts, 'label' => 'Products', 'icon' => 'fa-box', 'suffix' => '+'],
                     ['value' => $totalOrders, 'label' => 'Orders Delivered', 'icon' => 'fa-truck', 'suffix' => '+'],
-                    ['value' => $totalReviews, 'label' => 'Happy Reviews', 'icon' => 'fa-star', 'suffix' => '+'],
                     ['value' => $totalCategories, 'label' => 'Categories', 'icon' => 'fa-layer-group', 'suffix' => '+'],
                 ];
             @endphp
