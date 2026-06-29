@@ -111,6 +111,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('users', [AdminUserController::class, 'index'])->name('users.index');
 
     // Maintenance Mode
-    Route::post('maintenance/down', [DashboardController::class, 'maintenanceDown'])->name('maintenance.down');
-    Route::post('maintenance/up', [DashboardController::class, 'maintenanceUp'])->name('maintenance.up');
+    Route::get('maintenance/down', [DashboardController::class, 'maintenanceDown'])->name('maintenance.down');
+    Route::get('maintenance/up', [DashboardController::class, 'maintenanceUp'])->name('maintenance.up');
 });

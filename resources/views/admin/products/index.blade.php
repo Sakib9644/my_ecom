@@ -45,7 +45,7 @@ $(document).ready(function() {
             { data: 'featured_badge', name: 'featured_badge', orderable: false, searchable: false },
             { data: 'action', name: 'action', orderable: false, searchable: false },
         ],
-        order: [[1, 'desc']],
+        order: [],
         responsive: true,
         pageLength: 10,
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],

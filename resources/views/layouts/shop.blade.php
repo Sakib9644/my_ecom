@@ -67,6 +67,11 @@
                         <a href="{{ route('products.index') }}" class="text-sm font-semibold transition-colors {{ request()->routeIs('products.index') ? 'text-primary-600' : 'text-slate-600 hover:text-slate-900' }}">Shop</a>
                         <a href="{{ route('orders.index') }}" class="text-sm font-semibold transition-colors {{ request()->routeIs('orders.index') ? 'text-primary-600' : 'text-slate-600 hover:text-slate-900' }}">My Orders</a>
                     </div>
+                    
+                    <!-- Mobile hamburger button -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 hover:text-slate-900 focus:outline-none" onclick="toggleMobileMenu()">
+                        <i id="mobile-menu-icon" class="fa-solid fa-bars text-xl"></i>
+                    </button>
                 </div>
 
                 <!-- Right Nav -->
@@ -140,6 +145,41 @@
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Navigation Menu (slide-down) -->
+    <div id="mobile-menu-panel" class="md:hidden bg-white border-b border-slate-200 shadow-lg hidden">
+        <div class="px-4 py-4 space-y-4">
+            <!-- Mobile Search -->
+            <form action="{{ route('products.index') }}" method="GET" class="relative">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search products..."
+                    class="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-300 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </form>
+            
+            <!-- Nav Links -->
+            <div class="space-y-1">
+                <a href="{{ route('home') }}" class="block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors {{ request()->routeIs('home') ? 'bg-primary-50 text-primary-700' : 'text-slate-700 hover:bg-slate-50' }}">
+                    <i class="fa-solid fa-house w-5 text-center mr-2"></i> Home
+                </a>
+                <a href="{{ route('products.index') }}" class="block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors {{ request()->routeIs('products.index') ? 'bg-primary-50 text-primary-700' : 'text-slate-700 hover:bg-slate-50' }}">
+                    <i class="fa-solid fa-store w-5 text-center mr-2"></i> Shop
+                </a>
+                <a href="{{ route('orders.track') }}" class="block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors {{ request()->routeIs('orders.track') ? 'bg-primary-50 text-primary-700' : 'text-slate-700 hover:bg-slate-50' }}">
+                    <i class="fa-solid fa-truck w-5 text-center mr-2"></i> Track Order
+                </a>
+                <a href="{{ route('orders.index') }}" class="block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors {{ request()->routeIs('orders.index') ? 'bg-primary-50 text-primary-700' : 'text-slate-700 hover:bg-slate-50' }}">
+                    <i class="fa-solid fa-box w-5 text-center mr-2"></i> My Orders
+                </a>
+                @auth
+                    @if(Auth::user()->is_admin)
+                        <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                            <i class="fa-solid fa-gauge-high w-5 text-center mr-2"></i> Admin Panel
+                        </a>
+                    @endif
+                @endauth
+            </div>
+        </div>
+    </div>
 
     <!-- Main Content Area -->
     <main class="flex-grow">
@@ -270,6 +310,21 @@
                 if (chevron) chevron.style.transform = 'rotate(0deg)';
             }
         });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const panel = document.getElementById('mobile-menu-panel');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                panel.classList.add('hidden');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        }
     </script>
 </body>
 </html>

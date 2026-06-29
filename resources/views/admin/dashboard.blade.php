@@ -68,35 +68,37 @@
                     No orders have been placed yet.
                 </div>
             @else
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-50 border-b border-slate-100">
-                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Order Number</th>
-                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Customer</th>
-                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Total Price</th>
-                            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100 text-sm">
-                        @foreach($recentOrders as $order)
-                            <tr class="hover:bg-slate-50/55 cursor-pointer" onclick="window.location='{{ route('admin.orders.show', $order->id) }}'">
-                                <td class="px-6 py-4 font-bold text-slate-950">{{ $order->order_number }}</td>
-                                <td class="px-6 py-4">
-                                    <p class="font-bold text-slate-800">{{ $order->customer_name }}</p>
-                                    @if(!empty($order->customer_email))
-                                    <p class="text-slate-400 text-xs mt-0.5">{{ $order->customer_email }}</p>
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4 font-bold text-slate-800">৳{{ number_format($order->total, 0) }}</td>
-                                <td class="px-6 py-4">
-                                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border uppercase tracking-wider {{ $order->status_color }}">
-                                        {{ $order->status }}
-                                    </span>
-                                </td>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[500px]">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-100">
+                                <th class="px-4 sm:px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Order Number</th>
+                                <th class="px-4 sm:px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Customer</th>
+                                <th class="px-4 sm:px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Total Price</th>
+                                <th class="px-4 sm:px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Status</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-sm">
+                            @foreach($recentOrders as $order)
+                                <tr class="hover:bg-slate-50/55 cursor-pointer" onclick="window.location='{{ route('admin.orders.show', $order->id) }}'">
+                                    <td class="px-4 sm:px-6 py-4 font-bold text-slate-950 whitespace-nowrap">{{ $order->order_number }}</td>
+                                    <td class="px-4 sm:px-6 py-4">
+                                        <p class="font-bold text-slate-800 whitespace-nowrap">{{ $order->customer_name }}</p>
+                                        @if(!empty($order->customer_email))
+                                        <p class="text-slate-400 text-xs mt-0.5 truncate max-w-[160px]">{{ $order->customer_email }}</p>
+                                        @endif
+                                    </td>
+                                    <td class="px-4 sm:px-6 py-4 font-bold text-slate-800 whitespace-nowrap">৳{{ number_format($order->total, 0) }}</td>
+                                    <td class="px-4 sm:px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border uppercase tracking-wider {{ $order->status_color }}">
+                                            {{ $order->status }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             @endif
         </div>
     </div>

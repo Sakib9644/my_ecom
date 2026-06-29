@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="max-w-md mx-auto px-4 py-16 sm:py-24">
-    <div class="bg-white border border-slate-200/80 rounded-[32px] p-8 shadow-sm space-y-6">
+    <div class="bg-white border border-slate-200/80 rounded-[32px] p-6 sm:p-8 shadow-sm space-y-6">
         
         <div class="text-center space-y-2">
             <h1 class="text-2xl font-extrabold text-slate-900">Create Account</h1>

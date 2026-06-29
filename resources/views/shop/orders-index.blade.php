@@ -21,36 +21,38 @@
         </div>
     @else
         <div class="bg-white border border-slate-200/80 rounded-[32px] overflow-hidden shadow-sm">
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-slate-50 border-b border-slate-100">
-                        <th class="p-6 text-xs font-bold uppercase tracking-wider text-slate-400">Order Number</th>
-                        <th class="p-6 text-xs font-bold uppercase tracking-wider text-slate-400">Date</th>
-                        <th class="p-6 text-xs font-bold uppercase tracking-wider text-slate-400">Total Price</th>
-                        <th class="p-6 text-xs font-bold uppercase tracking-wider text-slate-400">Order Status</th>
-                        <th class="p-6 text-xs font-bold uppercase tracking-wider text-slate-400 text-right">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100">
-                    @foreach($orders as $order)
-                        <tr>
-                            <td class="p-6 text-sm font-extrabold text-slate-900">{{ $order->order_number }}</td>
-                            <td class="p-6 text-sm text-slate-500">{{ $order->created_at->format('M d, Y') }}</td>
-                            <td class="p-6 text-sm font-bold text-slate-800">৳{{ number_format($order->total, 0) }}</td>
-                            <td class="p-6">
-                                <span class="px-3 py-1 rounded-full text-xs font-bold border uppercase tracking-wider {{ $order->status_color }}">
-                                    {{ $order->status }}
-                                </span>
-                            </td>
-                            <td class="p-6 text-right">
-                                <a href="{{ route('orders.show', $order->order_number) }}" class="px-4 py-2 border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl text-xs transition-colors inline-block">
-                                    View Details
-                                </a>
-                            </td>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[500px]">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-100">
+                            <th class="p-4 sm:p-6 text-xs font-bold uppercase tracking-wider text-slate-400">Order Number</th>
+                            <th class="p-4 sm:p-6 text-xs font-bold uppercase tracking-wider text-slate-400">Date</th>
+                            <th class="p-4 sm:p-6 text-xs font-bold uppercase tracking-wider text-slate-400">Total Price</th>
+                            <th class="p-4 sm:p-6 text-xs font-bold uppercase tracking-wider text-slate-400">Order Status</th>
+                            <th class="p-4 sm:p-6 text-xs font-bold uppercase tracking-wider text-slate-400 text-right">Actions</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        @foreach($orders as $order)
+                            <tr>
+                                <td class="p-4 sm:p-6 text-sm font-extrabold text-slate-900 whitespace-nowrap">{{ $order->order_number }}</td>
+                                <td class="p-4 sm:p-6 text-sm text-slate-500 whitespace-nowrap">{{ $order->created_at->format('M d, Y') }}</td>
+                                <td class="p-4 sm:p-6 text-sm font-bold text-slate-800 whitespace-nowrap">৳{{ number_format($order->total, 0) }}</td>
+                                <td class="p-4 sm:p-6 whitespace-nowrap">
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold border uppercase tracking-wider {{ $order->status_color }}">
+                                        {{ $order->status }}
+                                    </span>
+                                </td>
+                                <td class="p-4 sm:p-6 text-right whitespace-nowrap">
+                                    <a href="{{ route('orders.show', $order->order_number) }}" class="px-4 py-2 border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl text-xs transition-colors inline-block">
+                                        View Details
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="mt-6">

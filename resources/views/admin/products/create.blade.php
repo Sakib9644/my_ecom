@@ -9,7 +9,7 @@
     </a>
 </div>
 
-<div class="max-w-2xl bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+<div class="max-w-2xl bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 lg:p-8 shadow-sm">
     <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6" id="product-form">
         @csrf
 

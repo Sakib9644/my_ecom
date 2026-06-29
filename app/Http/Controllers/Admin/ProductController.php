@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax() || $request->wantsJson()) {
-            $products = Product::with('category');
+            $products = Product::with('category')->latest();
             return DataTables::of($products)
                 ->addIndexColumn()
                 ->addColumn('image', fn(Product $p) => '<div class="h-10 w-10 rounded-lg overflow-hidden bg-slate-100 border border-slate-200 shrink-0"><img src="'.$p->image_url.'" alt="'.$p->name.'" class="h-full w-full object-cover"></div>')

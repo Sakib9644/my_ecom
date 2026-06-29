@@ -13,7 +13,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $featuredProducts = Product::where('is_featured', true)->take(6)->get();
+        $featuredProducts = Product::where('is_featured', true)->latest()->take(6)->get();
         $categories = Category::withCount('products')->get();
         $sliders = Slider::where('is_active', true)->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc')->get();
 

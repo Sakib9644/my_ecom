@@ -5,7 +5,7 @@
 @section('content')
 <div class="max-w-2xl">
     <div class="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
-        <div class="p-6 sm:p-8">
+        <div class="p-4 sm:p-6 lg:p-8">
             <form action="{{ route('admin.sliders.update', $slider->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')

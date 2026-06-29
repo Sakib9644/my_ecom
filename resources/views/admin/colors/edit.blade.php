@@ -9,7 +9,7 @@
     </a>
 </div>
 
-<div class="max-w-xl bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+<div class="max-w-xl bg-white border border-slate-200 rounded-3xl p-4 sm:p-6 lg:p-8 shadow-sm">
     <form action="{{ route('admin.colors.update', $color->id) }}" method="POST" class="space-y-6">
         @csrf
         @method('PUT')
